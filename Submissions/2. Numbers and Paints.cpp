@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define N 1000001
+#define N 1000000
 
 using namespace std;
 
@@ -9,64 +9,57 @@ int n;
 int main()
 {
     int k;
- 
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-
-    for(int i=2;i<=1000*1000;i++)
-    {
-    	if(A[i]==0)
-        {
-    		for(int j=i;j<=1000*1000;j+=i)
-            {
-    			A[j]=1;
-    			if(B[j]==0)
-                {
-                    B[j]=i;
-                }
-    		}
-    	}
-    }
     
     cin>>k;
 
-    assert(k>=1 && k<=20);
+    for(int i=2;i<=N;i++)
+    {
+        if(A[i]==0)
+        {
+            for(int j=i;j<=N;j+=i)
+            {
+                A[j]=1;
+                if(B[j]==0)
+                {
+                    B[j]=i;
+                }
+            }
+        }
+    }
 
     while(k--)
     {
-    	cin>>n;
+        cin>>n;
 
         int x=0;
+        
+        memset(C,0,sizeof(C));
 
-    	assert(n>=1 && n<=10000);
-    	memset(C,0,sizeof(C));
-
-    	while(n--)
+        while(n--)
         {
-    		int val;
-    		cin>>val;
+            int val;
+            cin>>val;
 
-    		assert(val>=1 && val<=1000*1000);
-    		while(val>1)
+            while(val>1)
             {
-    			C[B[val]]++;
-    			val/=B[val];
-    		}
-    	}
+                C[B[val]]++;
+                val/=B[val];
+            }
+        }
 
-    	for(int i=1;i<=1000*1000;i++)
+        for(int i=1;i<=N;i++)
         {
             x^=C[i];
         }
-    		
-    	if(x>0)
+            
+        if(x>0)
         {
             cout<<"Rishit"<<endl;
         }
-    	else
+        else
         {
             cout<<"Ruchika"<<endl;
-        }	
+        }    
     }
     return 0;
 }
